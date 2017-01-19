@@ -12,7 +12,8 @@ public class Main {
 		
 		//Game variables
 		String[] enemies = {"Skeleton" , "Zombie" , "Assassin"};
-		int maxEnemyHealth = 75;
+		int level = 0;
+		int maxEnemyHealth = 50;
 		int enemeyAttackDamage = 25;
 		int enemyKilled = 0;
 		
@@ -25,13 +26,13 @@ public class Main {
 		
 		boolean running = true;
 		
-		System.out.println("Welcome to the Dungeon");
+		System.out.println("########### Welcome to the Dungeon ###########");
 		
 		GAME:
 		while(running){
 			System.out.println("---------------------------------------------");
 			
-			int enemyHealth = rand.nextInt(maxEnemyHealth);
+			int enemyHealth = 5*level+rand.nextInt(maxEnemyHealth);
 			String enemy = enemies[rand.nextInt(enemies.length)];
 			System.out.println("\t# "+enemy+"has appeared! #\n");
 			
@@ -45,8 +46,8 @@ public class Main {
 				
 				String input = sc.nextLine();
 				if(input.equals("1")){
-					int damageDelt = rand.nextInt(attackDamage);
-					int damageTaken = rand.nextInt(enemeyAttackDamage);
+					int damageDelt = 10*level+rand.nextInt(attackDamage);
+					int damageTaken = 5*level+rand.nextInt(enemeyAttackDamage);
 					
 					health -= damageTaken;
 					enemyHealth -= damageDelt;
@@ -90,6 +91,12 @@ public class Main {
 			  System.out.println("---------------------------------------------");
 			  enemyKilled++;
 			  System.out.println("#"+enemy+" was defeated! #");
+			  if(enemyKilled == level*3+1){
+				  level ++;
+				  System.out.println("#Congratulation you have just leveled up you are now lvl :"+level+"#");
+			  }
+				  
+			  
 			  System.out.println("You killed "+enemyKilled+" enemy(s)");
 			  System.out.println("You have "+health+" HP!");
 			  if(rand.nextInt(100) < healthPotionDropChance){
@@ -115,6 +122,7 @@ public class Main {
 				  System.out.println("You exit the dungeon, successful from your adventures!");
 		break;} 
 			  }
+		sc.close();
 		System.out.println("#######################");
 		System.out.println("# THANKS FOR PLAYING! #");
 		System.out.println("#######################");
